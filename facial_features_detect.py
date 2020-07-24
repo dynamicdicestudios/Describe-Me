@@ -8,7 +8,7 @@ detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # read the image
-img = cv2.imread(r"C:\Users\Josiah\Documents\GitHub\Describe-Me\abba.png")
+img = cv2.imread("face.jpeg")
 
 # Convert image into grayscale because the detector only works with grayscale
 gray = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2GRAY)
@@ -30,13 +30,19 @@ for face in faces:
 
     # Look for the landmarks
     landmarks = predictor(image=gray, box=face)
-    
-    #finds the 27th point (refer to point map.png)
+
+    # Loop through all the points
+    for n in range(0, 68):
+        x = landmarks.part(n).x
+        y = landmarks.part(n).y
+    """
+    finds the 27th point (refer to point map.png)
     x = landmarks.part(27).x
     y = landmarks.part(27).y
+    """
     
     # Draw a circle
-    cv2.circle(img=img, center=(x, y), radius=5, color=(0, 255, 0), thickness=-1)
+    cv2.circle(img=img, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
 
 # show the image
 cv2.imshow(winname="Face", mat=img)
