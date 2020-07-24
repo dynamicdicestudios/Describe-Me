@@ -8,7 +8,7 @@ detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # read the image
-img = cv2.imread("face.jpeg")
+img = cv2.imread("face.png")
 
 # Convert image into grayscale because the detector only works with grayscale
 gray = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2GRAY)
