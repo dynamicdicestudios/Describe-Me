@@ -35,14 +35,14 @@ for face in faces:
     for n in range(0, 68):
         x = landmarks.part(n).x
         y = landmarks.part(n).y
-    """
-    finds the 27th point (refer to point map.png)
-    x = landmarks.part(27).x
-    y = landmarks.part(27).y
-    """
+        """
+        finds the 27th point (refer to point map.png)
+        x = landmarks.part(27).x
+        y = landmarks.part(27).y
+        """
     
-    # Draw a circle
-    cv2.circle(img=img, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
+        # Draw a circle
+        cv2.circle(img=img, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
 
 # show the image
 cv2.imshow(winname="Face", mat=img)
