@@ -99,45 +99,48 @@ def judge_eyeglass(img):
     print(judge)
     return judge
 
+def detect_eyeglasses(path):
+    predictor_path = "shape_predictor_5_face_landmarks.dat"
+    detector = dlib.get_frontal_face_detector()
+    predictor = dlib.shape_predictor(predictor_path)
 
-predictor_path = "shape_predictor_5_face_landmarks.dat"
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(predictor_path)
+    img = cv2.imread(path)
+        
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-img = cv2.imread("face.png")
-    
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    rects = detector(gray, 1)
 
-rects = detector(gray, 1)
+    for i, rect in enumerate(rects):
+        x_face = rect.left()
+        y_face = rect.top()
+        w_face = rect.right() - x_face
+        h_face = rect.bottom() - y_face
+        
+        cv2.rectangle(img, (x_face,y_face), (x_face+w_face,y_face+h_face), (0,255,0), 2)
+        cv2.putText(img, "Face #{}".format(i + 1), (x_face - 10, y_face - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
+              
+        landmarks = predictor(gray, rect)
+        landmarks = landmarks_to_np(landmarks)
+        for (x, y) in landmarks:
+            cv2.circle(img, (x, y), 2, (0, 0, 255), -1)
 
-for i, rect in enumerate(rects):
-    x_face = rect.left()
-    y_face = rect.top()
-    w_face = rect.right() - x_face
-    h_face = rect.bottom() - y_face
-    
-    cv2.rectangle(img, (x_face,y_face), (x_face+w_face,y_face+h_face), (0,255,0), 2)
-    cv2.putText(img, "Face #{}".format(i + 1), (x_face - 10, y_face - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
-          
-    landmarks = predictor(gray, rect)
-    landmarks = landmarks_to_np(landmarks)
-    for (x, y) in landmarks:
-        cv2.circle(img, (x, y), 2, (0, 0, 255), -1)
-
-    LEFT_EYE_CENTER, RIGHT_EYE_CENTER = get_centers(img, landmarks)
-    
-    aligned_face = get_aligned_face(gray, LEFT_EYE_CENTER, RIGHT_EYE_CENTER)
-    #cv2.imshow("aligned_face #{}".format(i + 1), aligned_face)
-    
-    judge = judge_eyeglass(aligned_face)
-    if judge == True:
-        cv2.putText(img, "With Glasses", (x_face + 100, y_face - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
-    else:
-        cv2.putText(img, "No Glasses", (x_face + 100, y_face - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2, cv2.LINE_AA)
-
+        LEFT_EYE_CENTER, RIGHT_EYE_CENTER = get_centers(img, landmarks)
+        
+        aligned_face = get_aligned_face(gray, LEFT_EYE_CENTER, RIGHT_EYE_CENTER)
+        #cv2.imshow("aligned_face #{}".format(i + 1), aligned_face)
+        
+        judge = judge_eyeglass(aligned_face)
+        if judge == True:
+            #cv2.putText(img, "With Glasses", (x_face + 100, y_face - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
+            return True
+        else:
+            #cv2.putText(img, "No Glasses", (x_face + 100, y_face - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2, cv2.LINE_AA)
+            return False
+"""
 cv2.imshow("Result", img)
 
 # Wait for a key press to exit
 cv2.waitKey(delay=0)
 
 cv2.destroyAllWindows()
+"""
