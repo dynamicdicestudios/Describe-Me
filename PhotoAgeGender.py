@@ -59,14 +59,14 @@ def guessAgeGender(path):
         genderNet.setInput(blob)
         genderPreds = genderNet.forward()
         gender = genderList[genderPreds[0].argmax()]
-        # print("Gender Output : {}".format(genderPreds))
-        print("Gender : {}, conf = {:.3f}".format(gender, genderPreds[0].max()))
+        #print("Gender Output : {}".format(genderPreds))
+        #print("Gender : {}, conf = {:.3f}".format(gender, genderPreds[0].max()))
 
         ageNet.setInput(blob)
         agePreds = ageNet.forward()
         age = ageList[agePreds[0].argmax()]
-        print("Age Output : {}".format(agePreds))
-        print("Age : {}, conf = {:.3f}".format(age, agePreds[0].max()))
+        #print("Age Output : {}".format(agePreds))
+        #print("Age : {}, conf = {:.3f}".format(age, agePreds[0].max()))
 
         return (age, gender)
 
