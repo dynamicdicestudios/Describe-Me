@@ -15,9 +15,9 @@ def get_image():
     file=Entry(root)
 
     def describe(path):
-        y_val = 10
+        y_val = 50
 
-        move_down = lambda y: y + 20
+        move_down = lambda y: y + 25
         
         glasses = detect_eyeglasses(path)
         #gets age and gender of person in the image (age first, gender last)
