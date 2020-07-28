@@ -51,18 +51,19 @@ def activity_detector(path):
         outputs = net.forward()
         label = CLASSES[np.argmax(outputs)]
 
-        # loop over our frames
+        """# loop over our frames
         for frame in frames:
-                # draw the predicted activity on the frame
-                cv2.rectangle(frame, (0, 0), (300, 40), (0, 0, 0), -1)
-                cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX,
+                
+        # draw the predicted activity on the frame
+        cv2.rectangle(frame, (0, 0), (300, 40), (0, 0, 0), -1)
+        cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX,
                         0.8, (255, 255, 255), 2)
-                return label
-                break
+        """
+        return label
 
-                """# display the frame to our screen
-                cv2.imshow("Activity Recognition", frame)
-                break
+        """# display the frame to our screen
+        cv2.imshow("Activity Recognition", frame)
+        break
                 
         cv2.waitKey(0)
         cv2.destroyAllWindows()"""
