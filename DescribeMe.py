@@ -4,6 +4,7 @@ from tkinter import *
 from face_detect import detect_faces
 from eyeglass_detector import detect_eyeglasses
 from PhotoAgeGender import guessAgeGender
+from human_activity_reco import activity_detector
 
 root = Tk()
 root.title("CV Grammar")
@@ -24,10 +25,11 @@ def describe(path):
     move_down = lambda y: y + 25
     
     glasses = detect_eyeglasses(path)
-    print(glasses)
     
     #gets age and gender of person in the image (age first, gender last)
     guess = guessAgeGender(path)
+
+    human_activity = activity_detector(path)
 
     img = cv2.imread(path)
     if cv2.getWindowProperty("Describe Me", 0) == -1:
@@ -41,6 +43,9 @@ def describe(path):
     if glasses:
         cv2.putText(img, "With Glasses", (10, y_val), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
         y_val = move_down(y_val)
+
+    cv2.putText(img, "Person is " + str(human_activity), (10, y_val), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
+    y_val = move_down(y_val)
 
     warning.configure(text="")
     
