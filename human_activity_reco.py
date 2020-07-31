@@ -20,11 +20,11 @@ def activity_detector(path):
         SAMPLE_SIZE = 112
 
         # load the human activity recognition model
-        print("[INFO] loading human activity recognition model...")
+        #print("[INFO] loading human activity recognition model...")
         net = cv2.dnn.readNet(model)
 
         # grab a pointer to the input video stream
-        print("[INFO] accessing image file...")
+        #print("[INFO] accessing image file...")
         frame = cv2.imread(path)
 
         # initialize the batch of frames that will be passed through the
