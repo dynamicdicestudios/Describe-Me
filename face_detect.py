@@ -22,7 +22,7 @@ def detect_faces(path):
     )
 
     return len(faces)
-
+"""
 def find_bg(x1, y1, x2, y2, image):
     colors = {}
     colour = []
@@ -31,9 +31,10 @@ def find_bg(x1, y1, x2, y2, image):
 
     area = (x2-x1) * (y2-y1)
     half = area//2
+    print(image.size)
     print(area)
-    for i in range(y1, y2):
-        for j in range(x1, x2):
+    for i in range(x1, x2):
+        for j in range(y1, y2):
             if str(image[i, j]) in colors:
                 color = str(image[i, j])
                 colors[color] += 1
@@ -42,6 +43,7 @@ def find_bg(x1, y1, x2, y2, image):
                     temp = colors[color]
                     key = color
                     colour = image[i, j]
+                    print(colour)
                 if colors[color] == half:
                     temp = colors[color]
                     key = color
@@ -90,8 +92,9 @@ def face_colour(path):
 
     cv2.imshow("Faces found", image)
     cv2.waitKey(0)
+"""
 
-face_colour("face.png")
+#face_colour("face.png")
 
 
 
