@@ -48,8 +48,8 @@ def guessAgeGender(path):
     t = time.time()
 
     frameFace, bboxes = getFaceBox(faceNet, frame)
-    if not bboxes:
-        print("No face Detected, Checking next frame")
+    #if not bboxes:
+        #print("No face Detected, Checking next frame")
 
     for bbox in bboxes:
         # print(bbox)
